@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ScreenSound.Shered.Dados\ScreenSound.Shered.Dados.csproj" />
     <ProjectReference Include="..\ScreenSound.Shered.Modelos\ScreenSound.Shered.Modelos.csproj" />
   </ItemGroup>
 
