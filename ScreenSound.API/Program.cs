@@ -9,7 +9,7 @@ builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options =
 
 app.MapGet("/", () => {
     var dal = new DAL<Artista>(new ScreenSoundContext());
-    dal.Listar();
+    return dal.Listar();
 
 });
 
