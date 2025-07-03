@@ -1,6 +1,7 @@
 using ScreenSound.Modelos;
 using System.Text.Json.Serialization;
 using ScreenSound.Banco;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
@@ -21,5 +22,10 @@ if (artista != null)
     }
 return Results.Ok(artista);
 });
-
+app.MapPost("/AdicionarArtista", ([FromBody] Artista artista) =>
+{
+    var dal = new DAL<Artista>(new ScreenSoundContext());
+    dal.Adicionar(artista);
+    return Results.Ok();
+});
 app.Run();

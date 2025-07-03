@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ScreenSound.Shered.Dados\ScreenSound.Shered.Dados.csproj" />
     <ProjectReference Include="..\ScreenSound.Shered.Modelos\ScreenSound.Shered.Modelos.csproj" />
   </ItemGroup>
