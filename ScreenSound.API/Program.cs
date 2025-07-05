@@ -31,7 +31,8 @@ app.MapPost("/AdicionarArtista", ([FromBody] Artista artista) =>
 app.MapDelete("/DeletarArtista", (int id) =>
 {
     var dal = new DAL<Artista>(new ScreenSoundContext());
-    var artista = dal.Deletar()
+    var artista = dal.RecuperarPor(a => a.Id == id);
+    dal.Deletar(artista);
 
 });
 app.Run();
