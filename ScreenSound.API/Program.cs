@@ -32,7 +32,24 @@ app.MapDelete("/DeletarArtista", (int id) =>
 {
     var dal = new DAL<Artista>(new ScreenSoundContext());
     var artista = dal.RecuperarPor(a => a.Id == id);
+    if (artista == null)
+    {
+        return Results.NotFound();
+    }
     dal.Deletar(artista);
+    return Results.Ok();
 
 });
+app.MapPut("/AtualizarArtista", ([FromBody] Artista artista) =>
+{
+    var dal = new DAL<Artista>(new ScreenSoundContext());
+    var artistaExistente = dal.RecuperarPor(a => a.Id == artista.Id);
+    if (artistaExistente == null)
+    {
+        return Results.NotFound();
+    }
+    dal.Atualizar(artista);
+    return Results.Ok();
+});
+
 app.Run();
