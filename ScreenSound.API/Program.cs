@@ -48,8 +48,20 @@ app.MapPut("/AtualizarArtista", ([FromBody] Artista artista) =>
     {
         return Results.NotFound();
     }
+    artista.Nome =  artistaExistente.Nome;
     dal.Atualizar(artista);
     return Results.Ok();
 });
-
+app.MapPatch("/AdicionarMusica/{idArtista}", (int idArtista, [FromBody] Musica musica) =>
+{
+    var dal = new DAL<Artista>(new ScreenSoundContext());
+    var artista = dal.RecuperarPor(a => a.Id == idArtista);
+    if (artista == null)
+    {
+        return Results.NotFound();
+    }
+    artista.AdicionarMusica(musica);
+    dal.Atualizar(artista);
+    return Results.Ok();
+});
 app.Run();
