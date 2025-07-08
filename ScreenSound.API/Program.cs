@@ -22,6 +22,15 @@ if (artista != null)
     }
 return Results.Ok(artista);
 });
+app.MapGet("/musicas/{nome}", (string nome) => {
+    var dal = new DAL<Artista>(new ScreenSoundContext());
+    var artista = dal.RecuperarPor(a => a.Nome.Equals(nome, StringComparison.OrdinalIgnoreCase));
+    if (artista != null)
+    {
+        Results.NotFound();
+    }
+    return Results.Ok(artista);
+});
 app.MapPost("/AdicionarArtista", ([FromBody] Artista artista) =>
 {
     var dal = new DAL<Artista>(new ScreenSoundContext());
