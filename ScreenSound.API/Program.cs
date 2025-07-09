@@ -22,15 +22,6 @@ if (artista != null)
     }
 return Results.Ok(artista);
 });
-app.MapGet("/musicas/{nome}", (string nome) => {
-    var dal = new DAL<Artista>(new ScreenSoundContext());
-    var artista = dal.RecuperarPor(a => a.Nome.Equals(nome, StringComparison.OrdinalIgnoreCase));
-    if (artista != null)
-    {
-        Results.NotFound();
-    }
-    return Results.Ok(artista);
-});
 app.MapPost("/AdicionarArtista", ([FromBody] Artista artista) =>
 {
     var dal = new DAL<Artista>(new ScreenSoundContext());
@@ -72,5 +63,18 @@ app.MapPatch("/AdicionarMusica/{idArtista}", (int idArtista, [FromBody] Musica m
     artista.AdicionarMusica(musica);
     dal.Atualizar(artista);
     return Results.Ok();
+});
+app.MapGet("/musicas", () => {
+    var dal = new DAL<Musica>(new ScreenSoundContext());
+    return Results.Ok(dal.Listar());
+});
+app.MapGet("/musicas/{nome}", (string nome) => {
+    var dal = new DAL<Musica>(new ScreenSoundContext());
+    var musica = dal.RecuperarPor(m => m.Nome.Equals(nome, StringComparison.OrdinalIgnoreCase));
+    if (musica == null)
+    {
+        return Results.NotFound();
+    }
+    return Results.Ok(musica);
 });
 app.Run();
