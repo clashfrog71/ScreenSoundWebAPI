@@ -77,4 +77,15 @@ app.MapGet("/musicas/{nome}", (string nome) => {
     }
     return Results.Ok(musica);
 });
+app.MapPut("AtualizarMusica", ([FromBody] Musica musica) =>
+{
+    var dal = new DAL<Musica>(new ScreenSoundContext());
+    var musicaExistente = dal.RecuperarPor(m => m.Id == musica.Id);
+    if (musicaExistente == null)
+    {
+        return Results.NotFound();
+    }
+    dal.Atualizar(musica);
+    return Results.Ok();
+});
 app.Run();
