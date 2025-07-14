@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ScreenSound.API.Requests;
 using ScreenSound.Banco;
 using ScreenSound.Modelos;
 namespace ScreenSound.API.Endpoints;
@@ -19,15 +20,17 @@ public static class MusicaEndpoint
             }
             return Results.Ok(musica);
         });
-        app.MapPut("/AtualizarMusica", ([FromBody] Musica musica) =>
+        app.MapPut("/AtualizarMusica", ([FromBody] MusicaRequest musicaRequest) =>
         {
             var dal = new DAL<Musica>(new ScreenSoundContext());
-            var musicaExistente = dal.RecuperarPor(m => m.Id == musica.Id);
+            var musicaExistente = dal.RecuperarPor(m => m.Id == musicaRequest.Id);
             if (musicaExistente == null)
             {
                 return Results.NotFound();
             }
-            dal.Atualizar(musica);
+            musicaExistente.Nome = musicaRequest.Nome;
+            musicaExistente.AnoLancamento = musicaRequest.AnoLancamento;
+            dal.Atualizar(musicaExistente);
             return Results.Ok();
         });
         app.MapDelete("/DeletarMusica/{nome}", (string nome) =>

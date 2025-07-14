@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ScreenSound.API.NovaPasta;
 using ScreenSound.Banco;
 using ScreenSound.Modelos;
 using System.Runtime.CompilerServices;
@@ -23,9 +24,10 @@ public static class ArtistaEndpoint
             }
             return Results.Ok(artista);
         });
-        app.MapPost("/AdicionarArtista", ([FromBody] Artista artista) =>
+        app.MapPost("/AdicionarArtista", ([FromBody] ArtistaRequest artistaRequest) =>
         {
             var dal = new DAL<Artista>(new ScreenSoundContext());
+            var artista = new Artista(artistaRequest.nome,artistaRequest.bio);
             dal.Adicionar(artista);
             return Results.Ok();
         });
