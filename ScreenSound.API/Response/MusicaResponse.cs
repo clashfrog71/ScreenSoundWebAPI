@@ -1,5 +1,3 @@
 ﻿namespace ScreenSound.API.Response;
 
-public class MusicaResponse
-{
-}
+public record MusicaResponse();
