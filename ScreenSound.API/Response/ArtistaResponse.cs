@@ -1,3 +1,3 @@
 ﻿namespace ScreenSound.API.Response;
 
-public record ArtistaResponse();
+public record ArtistaResponse(string);
