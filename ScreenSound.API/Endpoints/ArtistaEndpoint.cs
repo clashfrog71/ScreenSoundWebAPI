@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ScreenSound.API.NovaPasta;
+using ScreenSound.API.Response;
 using ScreenSound.Banco;
 using ScreenSound.Modelos;
 using System.Runtime.CompilerServices;
@@ -8,6 +9,16 @@ namespace ScreenSound.API.Endpoints;
 
 public static class ArtistaEndpoint
 {
+    private static ICollection<ArtistaResponse> EntityListToResponseList(IEnumerable<Artista> listaDeArtistas)
+    {
+        return listaDeArtistas.Select(a => EntityToResponse(a)).ToList();
+    }
+
+    private static ArtistaResponse EntityToResponse(Artista artista)
+    {
+        return new ArtistaResponse(artista.Nome, artista.Bio, artista.Id, artista.FotoPerfil);
+    }
+
     public static void Artista(this WebApplication app)
     {
         app.MapGet("/", () =>
@@ -67,5 +78,6 @@ public static class ArtistaEndpoint
             dal.Atualizar(artista);
             return Results.Ok();
         });
-    }
+      
+}
 }
