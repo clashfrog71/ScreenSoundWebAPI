@@ -13,7 +13,6 @@ public static class ArtistaEndpoint
     {
         return listaDeArtistas.Select(a => EntityToResponse(a)).ToList();
     }
-
     private static ArtistaResponse EntityToResponse(Artista artista)
     {
         return new ArtistaResponse(artista.Nome, artista.Bio, artista.Id, artista.FotoPerfil);
