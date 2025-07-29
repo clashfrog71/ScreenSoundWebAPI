@@ -25,8 +25,8 @@ public class ScreenSoundContext: DbContext
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Artista>()
-            .HasMany(a => a.Musicas)
-            .WithOne(m => m.Artista)
+        modelBuilder.Entity<Musica>()
+            .HasMany(a => a.Genero)
+            .WithMany(m => m.musicas);
     }
 }
