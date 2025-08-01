@@ -1,7 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using ScreenSound.API.Response;
 using ScreenSound.Modelos;
+using ScreenSound.Shared.Modelos.Modelos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,12 +21,14 @@ public class ScreenSoundContext: DbContext
     {
         optionsBuilder
             .UseSqlServer(connectionString)
-            .UseLazyLoadingProxies(); 
+            .UseLazyLoadingProxies();
     }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Musica>()
-            .HasMany(a => a.Genero)
-            .WithMany(m => m.musicas);
+            .HasMany(c => c.Generos)
+            .WithMany(c => c.Musicas);
     }
+
 }
